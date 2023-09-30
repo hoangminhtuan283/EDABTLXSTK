@@ -1,0 +1,40 @@
+# Đảm bảo bạn đã cài đặt và nạp thư viện "dplyr" và "readr"
+# install.packages("dplyr")
+# install.packages("readr")
+# library(dplyr)
+# library(readr)
+
+# [1] Đọc dữ liệu từ tập tin CSV
+data <- read_csv("dirty_data.csv")
+
+# [2] Kiểm tra cấu trúc của dữ liệu và thông tin về biến
+str(data)
+
+# [3] Xử lý dữ liệu khuyết bằng cách điền giá trị trung bình hoặc loại bỏ các bản ghi có giá trị khuyết
+data <- data %>%
+  na.omit()  # Loại bỏ các bản ghi có giá trị khuyết
+
+# [4] Kiểm tra và điều chỉnh định dạng dữ liệu của các biến nếu cần
+data$OrderDate <- as.Date(data$OrderDate, format = "%Y-%m-%d")
+
+# [5] Tạo bảng thống kê mẫu cho biến "Total"
+cat("[5] Bảng thống kê mẫu cho biến 'Total':\n")
+print(summary_total)
+
+# [6] Tạo bảng thống kê mẫu cho biến "Quantity"
+cat("\n[6] Bảng thống kê mẫu cho biến 'Quantity':\n")
+print(summary_quantity)
+
+# [7] Vẽ biểu đồ cột cho biến "Country" và thêm tiêu đề và nhận xét
+barplot(table(data$Country), main = "Biểu đồ cột cho Country", xlab = "Quốc gia", ylab = "Số lượng")
+
+# [8] Vẽ biểu đồ hộp cho biến "Total" và thêm tiêu đề và nhận xét
+boxplot(data$Total, main = "Biểu đồ hộp cho Total", ylab = "Total")
+
+# [9] Thực hiện kiểm định t
+cat("\n[9] Kết quả kiểm định t:\n")
+print(t_test_result)
+
+# [10] Thực hiện phân tích ANOVA
+cat("\n[10] Kết quả phân tích ANOVA:\n")
+print(anova_result)
